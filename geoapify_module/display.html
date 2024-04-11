@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Display Places</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f5f5f5;
+    }
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        position: relative;
+    }
+    h1 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    .place {
+        background-color: #fff;
+        padding: 15px;
+        margin-bottom: 15px;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .place h2 {
+        margin-top: 0;
+        margin-bottom: 10px;
+    }
+    .place p {
+        margin: 0;
+    }
+    .flightButton {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        background-color: #007bff;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    .hotelButton{
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background-color: #007bff;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+</style>
+</head>
+<body>
+
+
+<div class="container">
+    <button class="flightButton" onclick="openFlightPage()">search flight</button>
+    <button class="hotelButton" onclick="openHotelPage()">search hotel</button>
+    <h1>Places</h1>
+    <div id="places"></div>
+</div>
+<script>
+    // var flightData='';
+    window.onload = function() {
+    var dataString = localStorage.getItem('data1');
+    var data = JSON.parse(dataString);
+    displayPlaces(data); // Display the retrieved data
+};
+
+function openFlightPage() {
+    window.location.href = "FightSearch.html";
+}
+function openHotelPage() {
+    window.location.href = "HotelSearch.html";
+}
+
+// Function to display places
+function displayPlaces(data) {
+    var placesContainer = document.getElementById('places');
+    
+    data.features.forEach(function(feature) {
+        var name = feature.properties.name;
+        var addressLine1 = feature.properties.address_line1;
+        var addressLine2 = feature.properties.address_line2;
+        
+        if(name!=undefined)
+        { 
+            var placeDiv = document.createElement('div');
+            placeDiv.classList.add('place');
+            placeDiv.innerHTML = '<h2>' + name + '</h2>' +
+                                 '<p><strong>Address Line 1:</strong> ' + addressLine1 + '</p>' +
+                                 '<p><strong>Address Line 2:</strong> ' + addressLine2 + '</p>';
+            
+            placesContainer.appendChild(placeDiv);
+        }
+    });
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flight Offers</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f5f5f5;
+    }
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        position: relative;
+    }
+    h1 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    .place {
+        background-color: #fff;
+        padding: 15px;
+        margin-bottom: 15px;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .place h2 {
+        margin-top: 0;
+        margin-bottom: 10px;
+    }
+    .place p {
+        margin: 0;
+    }
+</style>
+</head>
+<body>
+    <div class="container">
+        <h1>Hotels</h1>
+        <div id="places"></div>
+    </div>
+
+<script>
+    // Call the function to get places data
+    // const lati = '26.850000';
+    // const longi = '80.949997';
+    // const catagory ='accommodation.hotel';
+    // getPlacesFromGeoapify(lati, longi, catagory)
+    //     .then(placesData => {
+    //         displayPlaces(placesData);
+    //         console.log(placesData);
+    //         // Do something with placesData if needed
+    //     })
+    //     .catch(error => {
+    //         console.error('Error:', error);
+    //     });
+
+
+
+window.onload = function() {
+    var dataString = localStorage.getItem('data3');
+    var data = JSON.parse(dataString);
+    displayPlaces(data);
+    console.log(data);
+};
+        
+
+function displayPlaces(data) {
+    var placesContainer = document.getElementById('places');
+    
+    data.features.forEach(function(feature) {
+        var name = feature.properties.datasource.raw.name;
+        var addressLine1 = feature.properties.address_line1;
+        var addressLine2 = feature.properties.address_line2;
+        
+        if(name!=undefined)
+        { 
+            var placeDiv = document.createElement('div');
+            placeDiv.classList.add('place');
+            placeDiv.innerHTML = '<h2>' + name + '</h2>' +
+                                 '<p><strong>Address Line 1:</strong> ' + addressLine1 + '</p>' +
+                                 '<p><strong>Address Line 2:</strong> ' + addressLine2 + '</p>';
+            
+            placesContainer.appendChild(placeDiv);
+        }
+    });
+}
+
+
+  </script>
+</body>
+</html>

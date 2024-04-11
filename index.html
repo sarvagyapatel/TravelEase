@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="referrer" content="no-referrer-when-downgrade">
+  <meta name="Cross-Origin-Opener-Policy" content="same-origin-allow-popups">
+  <!-- <link rel="stylesheet" href="/Tagstyle.css"> -->
+    <link rel="stylesheet" href="UIstyle.css">
+</head>
+<body>
+
+<!-- navigation bar begins -->
+<div class="navbar">
+    <a href="#" class="navbar-brand"><img src="images/logosmall.png" height="60px" width="60px"   alt="TravelEase" class="logo">  </a>
+    <div class="navbar-sections">
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Ticket</a></li>
+        <li><a href="#">Explore</a></li>
+        <li><a href="#">Activity</a></li>
+      </ul>
+    </div>
+    <div class="dropdown">
+      <button class="dropdown-button">☰</button>
+      <div class="dropdown-content">
+        <a href="#">Home</a>
+        <a href="#">Ticket</a>
+        <a href="#">Explore</a>
+        <a href="#">Activity</a>
+      </div>
+    </div>
+  </div>
+<!-- navigation bar ends -->
+
+<!-- html for brand logo starts -->
+<div id="myModal" class="popup">
+    <img src="images/logo.png" alt="TravelEase" class="modal-content">
+</div>
+<!-- html for brand logo ends -->
+
+
+  <div id="wrapper" style="display: flex; flex-direction: column;">
+
+    <div class="head">
+      <img id="biliki_logo" src="images/logo.png">
+      <!-- <p>Plan Your Sustainable Trip in Seconds</p> -->
+    </div>
+
+    <div id="destinationDiv">
+      <div id="topContent" >
+          <input id="destinationInput" placeholder="Destination">
+          <div id="iconsDiv">
+              <img id="calendarIcon" src="images/calander.png" >
+              <div id="button" onclick="initializeApp()">
+                <img src="images/submit.png" alt="submit">
+              </div>
+          </div>
+      </div>
+    </div>
+
+
+<!-- Departure Date Modal -->
+<div id="departureModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2>Select Departure Date</h2>
+    <input type="date" id="departureDate">
+  </div>
+</div>
+
+<!-- Return Date Modal -->
+<div id="returnModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2>Select Return Date</h2>
+    <input type="date" id="returnDate">
+  </div>
+</div>
+
+
+    <div id="interestsDiv">
+        <button class="selectOption" id="entertainment.culture">Culture</button>
+        <button class="selectOption" id="tourism">City Tour</button>
+        <button class="selectOption" id="natural">Nature</button>
+        <button class="selectOption" id="catering.restaurant">Restaurant</button>
+        <button class="selectOption" id="healthcare">Health</button>
+        <button class="selectOption" id="adult.nightclub">Nightlife</button>
+        <button class="selectOption" id="education">Educational</button>
+        <button class="selectOption" id="religion">Religion</button>
+        <button class="selectOption" id="entertainment">Entertainment</button>
+        <button class="selectOption" id="commercial.shopping_mall">Shopping</button>
+    </div>
+  </div>
+<script src="geoapify_module/HotelSearch.js"></script>
+<script src="geoapify_module/FlightSearch.js"></script>
+<script src="UIscript.js"></script>
+<script src="geoapify_module/places.js"></script>
+<script src="geoapify_module/CitySearch.js"></script>
+</body>
+</html>

@@ -154,12 +154,19 @@ window.onclick = function(event) {
 
 
 
-// Remove the automatic invocation of initializeApp() at the end of your script
+function initializeApp() {
+    // Check if initialization has already been done
+    if (localStorage.getItem('initialized')) {
+        return; // If yes, exit the function
+    }
+
+    citycoordinates(category);
+
+    // Set the flag indicating initialization has been done
+    localStorage.setItem('initialized', true);
+}
+
 // Call initializeApp() only when the button is clicked
 document.getElementById('button').addEventListener('click', function() {
     initializeApp();
 });
-
-function initializeApp() {
-    citycoordinates(category);
-}

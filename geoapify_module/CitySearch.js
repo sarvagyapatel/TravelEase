@@ -176,12 +176,6 @@ function initializeApp() {
     // Show enter city message
     enter_city.innerText = 'Enter City!!';
     enter_city.style.visibility = "visible";
-    
-    // Hide enter city message after 700 milliseconds
-    setTimeout(() => {
-      enter_city.style.visibility = "hidden";
-    }, 700);
-    
     // Show enter date message
     enterDate.innerText = 'Enter Date!!';
     enterDate.style.visibility = "visible";
@@ -192,6 +186,7 @@ function initializeApp() {
     
     // Hide both messages after 700 milliseconds
     setTimeout(() => {
+      enter_city.style.visibility = "hidden";
       enterDate.style.visibility = "hidden";
       enterTag.style.visibility = "hidden";
     }, 700);
@@ -209,7 +204,35 @@ function initializeApp() {
       enterDate.style.visibility = "hidden";
       enterTag.style.visibility = "hidden";
     }, 700);
-  } else if (category === '') {
+  }else if (category === '' && cityName === '') {
+    // Show enter date message
+    enter_city.innerText = 'Enter Date!!';
+    enter_city.style.visibility = "visible";
+    
+    // Show select category message
+    enterTag.innerText = 'Select at least one category!!';
+    enterTag.style.visibility = "visible";
+    
+    // Hide both messages after 700 milliseconds
+    setTimeout(() => {
+      enterDate.style.visibility = "hidden";
+      enterTag.style.visibility = "hidden";
+    }, 700);
+  }else if (cityName === '' && departDate === '') {
+    // Show enter date message
+    enterDate.innerText = 'Enter Date!!';
+    enterDate.style.visibility = "visible";
+    
+    // Show select category message
+    enter_city.innerText = 'Enter City!!';
+    enter_city.style.visibility = "visible";
+    
+    // Hide both messages after 700 milliseconds
+    setTimeout(() => {
+      enterDate.style.visibility = "hidden";
+      enterTag.style.visibility = "hidden";
+    }, 700);
+  }else if (category === '') {
     // Show select category message
     enterTag.innerText = 'Select at least one category!!';
     enterTag.style.visibility = "visible";
@@ -227,5 +250,15 @@ function initializeApp() {
     setTimeout(() => {
       enterDate.style.visibility = "hidden";
     }, 700);
+  }else if (cityName === '') {
+    // Show enter date message
+    enter_city.innerText = 'Enter City!!';
+    enter_city.style.visibility = "visible";
+    
+    // Hide enter date message after 700 milliseconds
+    setTimeout(() => {
+      enter_city.style.visibility = "hidden";
+    }, 700);
   }
+  
 }

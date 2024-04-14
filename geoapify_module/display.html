@@ -73,6 +73,7 @@
     <script>
         // var flightData='';
         window.onload = function () {
+            window.parent.document.body.style.zoom = 1;
             var dataString = localStorage.getItem('data1');
             var data = JSON.parse(dataString);
             displayPlaces(data); // Display the retrieved data

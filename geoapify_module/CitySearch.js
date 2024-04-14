@@ -32,7 +32,7 @@ function fetchSelectedDates() {
 
   const departSelectedDate = departDatePicker.getAttribute('data-rome-value');
   const returnSelectedDate = returnDatePicker.getAttribute('data-rome-value');
-
+  
   // Log the fetched values
   console.log(departDate);
   // console.log('Return Date:', returnDate, 'Selected:', returnSelectedDate);
@@ -133,6 +133,51 @@ document.getElementById('button').addEventListener('click', function() {
 });
 
 function initializeApp() {
-  const departDate=fetchSelectedDates();
-  citycoordinates(departDate,category);
+  const departDate = fetchSelectedDates();
+  const enterDate = document.querySelector('.enter_date');
+  const enterTag = document.querySelector('.enter_tag');
+  
+  // Reset text content and hide elements
+  enterDate.innerText = '';
+  enterDate.style.visibility = "hidden";
+  enterTag.innerText = '';
+  enterTag.style.visibility = "hidden";
+  
+  if (category !== '') {
+    if (departDate !== '') {
+      citycoordinates(departDate, category);
+    } else {
+      // Show enter date message
+      enterDate.innerText = 'Enter Date!!';
+      enterDate.style.visibility = "visible";
+      
+      // Hide enter date message after 100 milliseconds
+      setTimeout(() => {
+        enterDate.style.visibility = "hidden";
+      }, 700);
+    }
+  } else if (category === '' && departDate === '') {
+    // Show enter date message
+    enterDate.innerText = 'Enter Date!!';
+    enterDate.style.visibility = "visible";
+    
+    // Show select category message
+    enterTag.innerText = 'Select at least one category!!';
+    enterTag.style.visibility = "visible";
+    
+    // Hide both messages after 100 milliseconds
+    setTimeout(() => {
+      enterDate.style.visibility = "hidden";
+      enterTag.style.visibility = "hidden";
+    }, 700);
+  } else {
+    // Show select category message
+    enterTag.innerText = 'Select at least one category!!';
+    enterTag.style.visibility = "visible";
+    
+    // Hide select category message after 100 milliseconds
+    setTimeout(() => {
+      enterTag.style.visibility = "hidden";
+    }, 700);
+  }
 }

@@ -338,7 +338,9 @@ button:hover {
   color: white;
 }
 
-
+.enter_date, .enter_tag {
+  transition: visibility 0.5s;
+}
 
 
 

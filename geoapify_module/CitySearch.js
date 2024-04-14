@@ -42,10 +42,9 @@ function fetchSelectedDates() {
 
 
 
-async function citycoordinates(departDate,catagory) {
+async function citycoordinates(cityName,departDate,catagory) {
   try {
       const accessToken = await getAccessToken();
-      const cityName = document.getElementById('destinationInput').value;
       const countryCode = 'IN';
 
       const cityResponse = await AirportAndCitySearch(accessToken, countryCode, cityName);
@@ -133,29 +132,69 @@ document.getElementById('button').addEventListener('click', function() {
 });
 
 function initializeApp() {
+  const cityName = document.getElementById('destinationInput').value;
+  const enter_city = document.querySelector('.enter_city');
   const departDate = fetchSelectedDates();
   const enterDate = document.querySelector('.enter_date');
   const enterTag = document.querySelector('.enter_tag');
+  const showSpinner=document.querySelector('.spinner');
   
   // Reset text content and hide elements
+  enter_city.style.visibility = "hidden";
+  enter_city.innerText = '';
   enterDate.innerText = '';
   enterDate.style.visibility = "hidden";
   enterTag.innerText = '';
   enterTag.style.visibility = "hidden";
-  
-  if (category !== '') {
-    if (departDate !== '') {
-      citycoordinates(departDate, category);
+
+  if (cityName !== '') {
+    if (category !== '') {
+      if (departDate !== '') {
+        citycoordinates(cityName, departDate, category);
+        showSpinner.style.visibility="visible";
+      } else {
+        // Show enter date message
+        enterDate.innerText = 'Enter Date!!';
+        enterDate.style.visibility = "visible";
+        
+        // Hide enter date message after 700 milliseconds
+        setTimeout(() => {
+          enterDate.style.visibility = "hidden";
+        }, 700);
+      }
     } else {
-      // Show enter date message
-      enterDate.innerText = 'Enter Date!!';
-      enterDate.style.visibility = "visible";
+      // Show select category message
+      enterTag.innerText = 'Select at least one category!!';
+      enterTag.style.visibility = "visible";
       
-      // Hide enter date message after 100 milliseconds
+      // Hide select category message after 700 milliseconds
       setTimeout(() => {
-        enterDate.style.visibility = "hidden";
+        enterTag.style.visibility = "hidden";
       }, 700);
     }
+  } else if (category === '' && departDate === '' && cityName === '') {
+    // Show enter city message
+    enter_city.innerText = 'Enter City!!';
+    enter_city.style.visibility = "visible";
+    
+    // Hide enter city message after 700 milliseconds
+    setTimeout(() => {
+      enter_city.style.visibility = "hidden";
+    }, 700);
+    
+    // Show enter date message
+    enterDate.innerText = 'Enter Date!!';
+    enterDate.style.visibility = "visible";
+    
+    // Show select category message
+    enterTag.innerText = 'Select at least one category!!';
+    enterTag.style.visibility = "visible";
+    
+    // Hide both messages after 700 milliseconds
+    setTimeout(() => {
+      enterDate.style.visibility = "hidden";
+      enterTag.style.visibility = "hidden";
+    }, 700);
   } else if (category === '' && departDate === '') {
     // Show enter date message
     enterDate.innerText = 'Enter Date!!';
@@ -165,19 +204,28 @@ function initializeApp() {
     enterTag.innerText = 'Select at least one category!!';
     enterTag.style.visibility = "visible";
     
-    // Hide both messages after 100 milliseconds
+    // Hide both messages after 700 milliseconds
     setTimeout(() => {
       enterDate.style.visibility = "hidden";
       enterTag.style.visibility = "hidden";
     }, 700);
-  } else {
+  } else if (category === '') {
     // Show select category message
     enterTag.innerText = 'Select at least one category!!';
     enterTag.style.visibility = "visible";
     
-    // Hide select category message after 100 milliseconds
+    // Hide select category message after 700 milliseconds
     setTimeout(() => {
       enterTag.style.visibility = "hidden";
+    }, 700);
+  } else if (departDate === '') {
+    // Show enter date message
+    enterDate.innerText = 'Enter Date!!';
+    enterDate.style.visibility = "visible";
+    
+    // Hide enter date message after 700 milliseconds
+    setTimeout(() => {
+      enterDate.style.visibility = "hidden";
     }, 700);
   }
 }

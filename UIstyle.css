@@ -301,7 +301,9 @@ ul {
 .dropdown:hover .dropdown-content {
   display: block;
 }
-
+.spinner{
+  margin-top: 400px;
+}
 
 @media screen and (max-width: 600px) {
   .navbar-sections {
@@ -313,6 +315,9 @@ ul {
   }
   .logo{
     visibility: hidden;
+  }
+  .spinner{
+    margin-top: 480px;
   }
 }
 

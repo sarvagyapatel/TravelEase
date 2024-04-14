@@ -32,35 +32,25 @@ async function getAccessToken() {
         }
     });
 }
- 
-  // Function to display flight offers
-//   function displayFlightOffers(flightOffers) {
-//     const flightOffersBody = document.getElementById('flightOffersBody');
-//     flightOffersBody.innerHTML = ''; // Clear previous search results
-
-//     flightOffers.data.forEach((offer) => {
-//       const itinerary = offer.itineraries[0];
-//       const segments = itinerary.segments;
-//       const firstSegment = segments[0];
-//       const lastSegment = segments[segments.length - 1];
-
-//       const row = document.createElement('tr');
-//       row.innerHTML = `
-//         <td>${offer.id}</td>
-//         <td>${offer.price.total*90}</td>
-//         <td>${itinerary.duration}</td>
-//         <td>${firstSegment.departure.iataCode} - ${firstSegment.departure.at}</td>
-//         <td>${lastSegment.arrival.iataCode} - ${lastSegment.arrival.at}</td>
-//       `;
-//       flightOffersBody.appendChild(row);
-//     });
-//   }
+  
+  async function convertDateFormat(inputDate) {
+    // Create a Date object from the input date string
+    const date = new Date(inputDate);
+    
+    // Extract year, month, and day from the Date object
+    const year = date.getFullYear();
+    // Get month value and add 1 because getMonth() returns zero-based month index
+    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Zero-padding if needed
+    const day = date.getDate().toString().padStart(2, '0'); // Zero-padding if needed
+    
+    // Construct the output date string in YYYY-MM-DD format
+    const outputDate = `${year}-${month}-${day}`;
+    
+    return outputDate;
+  }
 
   // Function to handle search button click
-  async function searchFlightOffers(cityName) {
-    // const origin = document.getElementById('origin').value;
-    // const destination = document.getElementById('destination').value;
-    // const departureDate = document.getElementById('departureDate').value;
+  async function searchFlightOffers(departureDate,cityName) {
 
     try {
       const accessToken = await getAccessToken();
@@ -74,18 +64,10 @@ async function getAccessToken() {
       const cityData = await cityResponse.json();
       const destination=cityData.data[0].iataCode;
       const origin='DEL';
-      const departureDate='2024-05-02';
-      return makeRequestWithAccessTokenForFlightSearch(accessToken, origin, destination, departureDate);
+      let departDate=await convertDateFormat(departureDate);
+      return makeRequestWithAccessTokenForFlightSearch(accessToken, origin, destination, departDate);
 
-    //   displayFlightOffers(flightOffers);
-
-    //   console.log(flightOffers);
     } catch (error) {
       console.error('Error:', error);
     }
   }
-
-  // Call search function when the page loads
-//   window.onload = function() {
-//     searchFlightOffers();
-//   };

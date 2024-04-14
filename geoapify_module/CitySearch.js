@@ -18,7 +18,31 @@ async function AirportAndCitySearch(accessToken, countryCode, cityName) {
     });
 }
 
-async function citycoordinates(catagory) {
+
+  
+// Function to fetch the selected dates
+function fetchSelectedDates() {
+  // Get the values of the "Depart" and "Return" inputs
+  const departDate = document.getElementById('result_from').value;
+  const returnDate = document.getElementById('result_to').value;
+
+  // Get the selected dates from the date pickers
+  const departDatePicker = document.getElementById('inline_cal_from');
+  const returnDatePicker = document.getElementById('inline_cal_to');
+
+  const departSelectedDate = departDatePicker.getAttribute('data-rome-value');
+  const returnSelectedDate = returnDatePicker.getAttribute('data-rome-value');
+
+  // Log the fetched values
+  console.log(departDate);
+  // console.log('Return Date:', returnDate, 'Selected:', returnSelectedDate);
+  return departDate;
+  // You can further process or use the fetched values as needed
+}
+
+
+
+async function citycoordinates(departDate,catagory) {
   try {
       const accessToken = await getAccessToken();
       const cityName = document.getElementById('destinationInput').value;
@@ -54,7 +78,7 @@ async function citycoordinates(catagory) {
       var data1 = placesData;
       localStorage.setItem('data1', JSON.stringify(data1));
 
-      const flightdata=await searchFlightOffers(cityName);
+      const flightdata=await searchFlightOffers(departDate,cityName);
       var data2=flightdata;
       localStorage.setItem('data2', JSON.stringify(data2));
 
@@ -102,57 +126,6 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
-// // Main function to initialize the application
-// function initializeApp() {
-// //   // Add event listener to the form
-// //   document.getElementById('destinationForm').addEventListener('submit', function(event) {
-// //       event.preventDefault(); // Prevent default form submission behavior
-// //       // Call function to get city coordinates
-// //       citycoordinates(category);
-// //   });
-//   citycoordinates(category);
-// }
-
-// // Call the initializeApp function to set up the application
-// initializeApp();
-
-
-// Get the modal elements
-var departureModal = document.getElementById("departureModal");
-var returnModal = document.getElementById("returnModal");
-
-// Get the button that opens the modal
-var calendarIcon = document.getElementById("calendarIcon");
-
-// Get the <span> element that closes the modal
-var departureClose = document.getElementsByClassName("close")[0];
-var returnClose = document.getElementsByClassName("close")[1];
-
-// When the user clicks on the button, open the modal
-calendarIcon.onclick = function() {
-  departureModal.style.display = "block";
-}
-
-// When the user clicks on <span> (x), close the modal
-departureClose.onclick = function() {
-  departureModal.style.display = "none";
-}
-
-returnClose.onclick = function() {
-  returnModal.style.display = "none";
-}
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-  if (event.target == departureModal) {
-    departureModal.style.display = "none";
-  }
-  if (event.target == returnModal) {
-    returnModal.style.display = "none";
-  }
-}
-
-
 
 // Remove the automatic invocation of initializeApp() at the end of your script
 document.getElementById('button').addEventListener('click', function() {
@@ -160,5 +133,6 @@ document.getElementById('button').addEventListener('click', function() {
 });
 
 function initializeApp() {
-  citycoordinates(category);
+  const departDate=fetchSelectedDates();
+  citycoordinates(departDate,category);
 }

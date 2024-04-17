@@ -68,19 +68,22 @@
       id="exampleModal"
       tabindex="-1"
       aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
+      aria-hidden="true" 
+      
     >
       <div class="modal-dialog">
         <div class="modal-content">
-          <div class="modal-body">
+          <div class="modal-header">
             <button
               type="button"
-              class="btn-primary"
+              class="btn-close"
+              aria-label="Close"
               data-bs-dismiss="modal"
+              style="margin-right: none"
               onclick="fetchSelectedDates()"
-            >
-              Save Dates
-            </button>
+            ></button>
+          </div>
+          <div class="modal-body">
             <div
               class="content"
               style="margin-top: -100px; margin-bottom: -100px"
@@ -116,6 +119,7 @@
                 </div>
               </div>
             </div>
+            <button type="button" class="btn btn-primary" data-bs-dismiss="modal"  onclick="fetchSelectedDates()">Save changes</button>
           </div>
         </div>
       </div>

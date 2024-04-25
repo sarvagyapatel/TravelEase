@@ -14,6 +14,7 @@ body {
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: fixed;
+
 }
 
 #wrapper {
@@ -98,15 +99,14 @@ body {
 #calendarIcon {
   width: 30px;
   height: 30px;
-  opacity: 70%;
   transition: 0.3s;
   margin-right: 10px;
 }
 
 #calendarIcon:hover{
   cursor: pointer;
-  opacity: 100%;
-  transition: 0.3s;
+  zoom: 1.5;
+  transition: 1s;
 }
 
 
@@ -139,7 +139,7 @@ body {
 }
 
 #button {
-  background-color: #10b099;
+  background-color: #023e8a;
   border-radius: 16px;
   width: 35px!important;
   height: 35px;
@@ -150,13 +150,18 @@ body {
 }
 
 #button:hover{
-  background-color: #097f6e;
-  transition: 0.3s;
+  zoom: 1.5;
+  transition: 1s;
   cursor: pointer;
 }
 
 #button img {
   width: 37px;
+}
+
+.modal{
+  margin-left: 13%;
+  margin-right: 13%;
 }
 
 @media screen and (max-width: 600px) {
@@ -177,6 +182,19 @@ body {
   #interestsDiv {
       margin: 0 20 0 20!important;
   }
+  .modal{
+    margin-left: 0%;
+    margin-right: 0%;
+  }
+}
+
+@media screen and (max-width: 400px) {
+ 
+  #biliki_logo {
+    width: 99%;
+    margin-bottom: 7%;
+  }  
+
 }
 
 @media screen and (max-width: 470px){
@@ -302,7 +320,7 @@ ul {
   display: block;
 }
 .spinner{
-  margin-top: 400px;
+  margin-top: 500px;
 }
 
 @media screen and (max-width: 600px) {
@@ -317,7 +335,7 @@ ul {
     visibility: hidden;
   }
   .spinner{
-    margin-top: 480px;
+    margin-top: 580px;
   }
 }
 

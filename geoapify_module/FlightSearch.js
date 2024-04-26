@@ -50,12 +50,11 @@ async function getAccessToken() {
   }
 
   // Function to handle search button click
-  async function searchFlightOffers(departureDate,cityName) {
+  async function searchFlightOffers(departureDate,cityName,countryCode) {
 
     try {
       const accessToken = await getAccessToken();
-    //   const cityName = document.getElementById('destination').value;
-      const countryCode = 'IN';
+    //   const cityName = document.getElementById('destination').value
 
       const cityResponse = await AirportAndCitySearch(accessToken, countryCode, cityName);
       if (!cityResponse.ok) {
@@ -63,7 +62,20 @@ async function getAccessToken() {
       }
       const cityData = await cityResponse.json();
       const destination=cityData.data[0].iataCode;
-      const origin='DEL';
+      // const origin='DEL';
+      let yourLocationData=await getDepartureCity();
+      let departureCity=yourLocationData.city.name;
+      let departureCountryCode=yourLocationData.country.iso_code;
+
+      const cityResponse2 = await AirportAndCitySearch(accessToken, departureCountryCode, departureCity);
+      if (!cityResponse2.ok) {
+        throw new Error(`Failed to fetch city data: ${cityResponse2.statusText}`);
+      }
+      const cityData2 = await cityResponse2.json();
+      const origin=cityData2.data[0].iataCode;
+
+      
+
       let departDate=await convertDateFormat(departureDate);
       return makeRequestWithAccessTokenForFlightSearch(accessToken, origin, destination, departDate);
 

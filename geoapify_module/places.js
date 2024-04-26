@@ -27,28 +27,14 @@ async function getPlacesFromGeoapify(lati, longi, catagories) {
 }
 
 
-
-// Function to get location information based on IP address
-async function getLocationInfo() {
+async function getDepartureCity() {
     try {
-        // Geoapify API request URL
-        const url = `https://api.geoapify.com/v1/ipinfo?apiKey=${apiKey}`;
-
-        // Fetch location information
-        const response = await fetch(url);
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        
-        // Parse response data
-        const data = await response.json();
-        console.log('Location information:', data);
-
-        return data;
-
+      const response = await fetch('https://api.geoapify.com/v1/ipinfo?apiKey=77ad40d7fc9d4f4b8110e2adb6150ce4');
+      const userLocationData = await response.json();
+      console.log(userLocationData);
+      return userLocationData;
     } catch (error) {
-        console.error('Error:', error);
+      console.error('Error getting departure city:', error);
+      return null; // Handle error gracefully
     }
-}
-
-// Call the function to get location information
+  }

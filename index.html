@@ -88,6 +88,27 @@
     </div>
   </div>
 
+   
+  <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Enter Your Destination</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <input type="text" class="CityName1" placeholder="enter city name">
+          <input type="text" class="countryName1" placeholder="enter country">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
   <div id="wrapper" style="display: flex; flex-direction: column">
     <div class="head">
       <img id="biliki_logo" src="images/logo.png" />
@@ -95,8 +116,8 @@
     </div>
     <div id="destinationDiv">
       <div id="topContent">
-        <input id="destinationInput" placeholder="Destination" />
-        <div id="iconsDiv">
+        <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#exampleModal2" style="min-width: 70%; color: #03045e; font-family: 'Poppins', sans-serif; font-size: 1.1rem;"><b>Enter your Destination</b></button>        
+          <div id="iconsDiv">
           <!-- Changed the onclick event from initializeApp() to openModal() -->
           <img id="calendarIcon" src="images/calander.png" data-bs-toggle="modal" data-bs-target="#exampleModal" />
           <div id="button" onclick="initializeApp()">
@@ -105,6 +126,7 @@
         </div>
       </div>
     </div>
+
 
     <div id="interestsDiv">
       <button class="selectOption" id="entertainment.culture">Culture</button>

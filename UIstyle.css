@@ -52,7 +52,7 @@ body {
   color: rgba(0, 0, 0, 0.628);
 }
 
-#biliki_logo {
+#logo {
   width: 400px;
   margin-bottom: 7%;
 }
@@ -94,6 +94,7 @@ body {
   color: white;
   font-family: 'Poppins', sans-serif;
   transition: 0.2s;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 #calendarIcon {
@@ -147,6 +148,7 @@ body {
   justify-content: center;
   align-items: center;
   transition: 0.3s;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 #button:hover{
@@ -157,6 +159,7 @@ body {
 
 #button img {
   width: 37px;
+  
 }
 
 .modal.fade.modal-dialog-scrollable.modal-xl{
@@ -190,7 +193,7 @@ body {
 
 @media screen and (max-width: 400px) {
  
-  #biliki_logo {
+  #logo {
     width: 99%;
     margin-bottom: 7%;
   }  

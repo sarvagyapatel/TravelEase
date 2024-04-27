@@ -15,7 +15,7 @@ async function getAccessToken() {
 
   // Function to make request with access token
   async function makeRequestWithAccessTokenForFlightSearch(accessToken, origin, destination, departureDate) {
-    const url = `https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=${origin}&destinationLocationCode=${destination}&departureDate=${departureDate}&adults=1&max=250`;
+    const url = `https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=${origin}&destinationLocationCode=${destination}&departureDate=${departureDate}&adults=1&max=50`;
     const response = await fetch(url, {
       headers: {
         'Authorization': `Bearer ${accessToken}`
@@ -25,8 +25,8 @@ async function getAccessToken() {
     return await response.json();
   }
 
-  async function AirportAndCitySearch(accessToken, countryCode, cityName) {
-    return await fetch(`https://test.api.amadeus.com/v1/reference-data/locations/cities?countryCode=${countryCode}&keyword=${cityName}&max=10`, {
+  async function AirportAndCitySearch(accessToken, cityName) {
+    return await fetch(`https://test.api.amadeus.com/v1/reference-data/locations?subType=CITY&keyword=${cityName}&page%5Blimit%5D=10&page%5Boffset%5D=0&sort=analytics.travelers.score&view=FULL`, {
         headers: {
             'Authorization': `Bearer ${accessToken}`
         }
@@ -50,24 +50,25 @@ async function getAccessToken() {
   }
 
   // Function to handle search button click
-  async function searchFlightOffers(date,originName,destinationName,originCountryCode,destinationCountryCode) {
+  async function searchFlightOffers(date,originName,destinationName) {
 
     try {
       const accessToken = await getAccessToken();
 
-      const cityResponse = await AirportAndCitySearch(accessToken, destinationCountryCode, destinationName);
+      const cityResponse = await AirportAndCitySearch(accessToken, destinationName);
       if (!cityResponse.ok) {
         throw new Error(`Failed to fetch city data: ${cityResponse.statusText}`);
       }
       const cityData = await cityResponse.json();
-      const destination=cityData.data[0].iataCode;
+      const destination=cityData.data[0].address.cityCode;
+      console.log(destination);
 
-      const cityResponse2 = await AirportAndCitySearch(accessToken, originCountryCode, originName);
+      const cityResponse2 = await AirportAndCitySearch(accessToken, originName);
       if (!cityResponse2.ok) {
         throw new Error(`Failed to fetch city data: ${cityResponse2.statusText}`);
       }
       const cityData2 = await cityResponse2.json();
-      const origin=cityData2.data[0].iataCode;
+      const origin=cityData2.data[0].address.cityCode;;
 
 
       let departDate=await convertDateFormat(date);

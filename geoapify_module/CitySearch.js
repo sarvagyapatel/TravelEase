@@ -276,6 +276,16 @@ async function AirportAndCitySearch(accessToken, cityName) {
     });
 }
 
+
+async function AirportAndCitySearch2(accessToken, countryCode, cityName) {
+  return await fetch(`https://test.api.amadeus.com/v1/reference-data/locations/cities?countryCode=${countryCode}&keyword=${cityName}&max=10`, {
+      headers: {
+          'Authorization': `Bearer ${accessToken}`
+      }
+  });
+}
+
+
 async function citycoordinates(cityName, departDate, returnDate, category,originCity) {
   try {
 
@@ -289,9 +299,18 @@ async function citycoordinates(cityName, departDate, returnDate, category,origin
     }
 
     const cityData = await cityResponse.json();
+    let countryCode=cityData.data[0].address.countryCode;
     console.log(cityData);
-    const lati = cityData.data[0].geoCode.latitude;
-    const longi = cityData.data[0].geoCode.longitude;
+
+
+    const cityResponse4 = await AirportAndCitySearch2(accessToken, countryCode, cityName);
+    if (!cityResponse4.ok) {
+      throw new Error(`Failed to fetch city data: ${cityResponse.statusText}`);
+    }
+
+    const cityData3=await cityResponse4.json();
+    const lati = cityData3.data[0].geoCode.latitude;
+    const longi = cityData3.data[0].geoCode.longitude;
 
     category = category.slice(0, -1);
 

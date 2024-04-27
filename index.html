@@ -19,9 +19,9 @@
 </head>
 
 <body >
-  <div class="counterDiv">
+  <!-- <div class="counterDiv">
     <h5 class="counter">Visited: </h5>
-  </div>
+  </div> -->
   <!-- navigation bar begins -->
   <!-- <div class="navbar">
       <a href="#" class="navbar-brand"
@@ -110,6 +110,26 @@
     </div>
   </div>
 
+  <div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Enter Your Origin</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <input type="text" class="CityName2" placeholder="enter city name">
+          <input type="text" class="countryName2" placeholder="enter country">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
 
   <div id="wrapper" style="display: flex; flex-direction: column">
     <div class="head">
@@ -118,7 +138,8 @@
     </div>
     <div id="destinationDiv">
       <div id="topContent">
-        <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#exampleModal2" style="min-width: 70%; color: #03045e; font-family: 'Poppins', sans-serif; font-size: 1.1rem;"><b>Enter your Destination</b></button>        
+        <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#exampleModal3" style="min-width: 30%; color: #03045e; font-family: 'Poppins', sans-serif; font-size: 1.1rem;"><b><strong>From</strong></b></button>
+        <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#exampleModal2" style="min-width: 30%; color: #03045e; font-family: 'Poppins', sans-serif; font-size: 1.1rem;"><b><strong>To</strong></b></button>         
           <div id="iconsDiv">
           <!-- Changed the onclick event from initializeApp() to openModal() -->
           <img id="calendarIcon" src="images/calander.png" data-bs-toggle="modal" data-bs-target="#exampleModal" />
@@ -161,7 +182,7 @@
   </div>
 
 
-  <script>
+  <!-- <script>
     let showcounter = document.querySelector('.counter');
     window.onload = function () {
       let counterUser = parseInt(localStorage.getItem('counterUser')) || 0; // Get the current count from localStorage or default to 0
@@ -169,7 +190,7 @@
       localStorage.setItem('counterUser', counterUser); // Store the updated count back to localStorage
       showcounter.innerText =showcounter.innerText+' '+counterUser+' '+'x'; // Display the updated count
     };
-  </script>
+  </script> -->
 
   <script src="geoapify_module/HotelSearch.js"></script>
   <script src="geoapify_module/FlightSearch.js"></script>

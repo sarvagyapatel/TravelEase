@@ -25,16 +25,3 @@ async function getPlacesFromGeoapify(lati, longi, catagories) {
         console.error('Error:', error);
     }
 }
-
-
-async function getDepartureCity() {
-    try {
-      const response = await fetch('https://api.geoapify.com/v1/ipinfo?apiKey=77ad40d7fc9d4f4b8110e2adb6150ce4');
-      const userLocationData = await response.json();
-      console.log(userLocationData);
-      return userLocationData;
-    } catch (error) {
-      console.error('Error getting departure city:', error);
-      return null; // Handle error gracefully
-    }
-  }

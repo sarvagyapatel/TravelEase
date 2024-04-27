@@ -278,9 +278,12 @@ async function AirportAndCitySearch(accessToken, countryCode, cityName) {
 
 async function citycoordinates(cityName, departDate, returnDate, category) {
   try {
-    const originCityObj = await getDepartureCity();
-    const originCountryCode = originCityObj.country.iso_code;
-    const originCity = originCityObj.city.name;
+    const originCountryName = document.querySelector(".countryName2").value;
+    const originCountryCode = getCountryCode(originCountryName);
+
+    let originCity = document.querySelector(".CityName2").value;
+    originCity = originCity.charAt(0).toUpperCase() + originCity.slice(1);
+
     const destinationCountryName = document.querySelector(".countryName1").value;
     const destinationCountryCode = getCountryCode(destinationCountryName);
 

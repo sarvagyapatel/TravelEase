@@ -19,6 +19,9 @@
 </head>
 
 <body >
+  <div class="counterDiv">
+    <h5 class="counter">Visited: </h5>
+  </div>
   <!-- navigation bar begins -->
   <!-- <div class="navbar">
       <a href="#" class="navbar-brand"
@@ -55,8 +58,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="btn-close" aria-label="Close" data-bs-dismiss="modal" style="margin-right: none"
-            onclick="fetchSelectedDates()"></button>
+          <button type="button" class="btn-close" aria-label="Close" data-bs-dismiss="modal" style="margin-right: none"></button>
         </div>
         <div class="modal-body">
           <div class="content" style="margin-top: -100px; margin-bottom: -100px">
@@ -80,7 +82,7 @@
               </div>
             </div>
           </div>
-          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="fetchSelectedDates()">
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
             Save changes
           </button>
         </div>
@@ -157,6 +159,17 @@
       <span class="visually-hidden">Loading...</span>
     </div>
   </div>
+
+
+  <script>
+    let showcounter = document.querySelector('.counter');
+    window.onload = function () {
+      let counterUser = parseInt(localStorage.getItem('counterUser')) || 0; // Get the current count from localStorage or default to 0
+      counterUser = counterUser + 1; // Increment the counter
+      localStorage.setItem('counterUser', counterUser); // Store the updated count back to localStorage
+      showcounter.innerText =showcounter.innerText+' '+counterUser+' '+'x'; // Display the updated count
+    };
+  </script>
 
   <script src="geoapify_module/HotelSearch.js"></script>
   <script src="geoapify_module/FlightSearch.js"></script>

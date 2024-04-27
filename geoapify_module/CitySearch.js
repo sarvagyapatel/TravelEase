@@ -276,77 +276,47 @@ async function AirportAndCitySearch(accessToken, countryCode, cityName) {
     });
 }
 
-
-  
-// Function to fetch the selected dates
-function fetchSelectedDates() {
-  // Get the values of the "Depart" and "Return" inputs
-  const departDate = document.getElementById('result_from').value;
-  const returnDate = document.getElementById('result_to').value;
-
-  // Get the selected dates from the date pickers
-  const departDatePicker = document.getElementById('inline_cal_from');
-  const returnDatePicker = document.getElementById('inline_cal_to');
-
-  const departSelectedDate = departDatePicker.getAttribute('data-rome-value');
-  const returnSelectedDate = returnDatePicker.getAttribute('data-rome-value');
-  
-  // Log the fetched values
-  console.log(departDate);
-  // console.log('Return Date:', returnDate, 'Selected:', returnSelectedDate);
-  return departDate;
-  // You can further process or use the fetched values as needed
-}
-
-
-
-async function citycoordinates(cityName,departDate,catagory) {
+async function citycoordinates(cityName, departDate, returnDate, category) {
   try {
-      let departureCity=await getDepartureCity();
-      departureCity=departureCity.city.name;
-      departureCity = departureCity.charAt(0).toUpperCase() + departureCity.slice(1);
-      const accessToken = await getAccessToken();
-      let countryName=document.querySelector(".countryName1").value;
-      let countryCode = getCountryCode(countryName);
-      const cityResponse = await AirportAndCitySearch(accessToken, countryCode, cityName);
+    const originCityObj = await getDepartureCity();
+    const originCountryCode = originCityObj.country.iso_code;
+    const originCity = originCityObj.city.name;
+    const destinationCountryName = document.querySelector(".countryName1").value;
+    const destinationCountryCode = getCountryCode(destinationCountryName);
 
-      if (!cityResponse.ok) {
-          throw new Error(`Failed to fetch city data: ${cityResponse.statusText}`);
-      }
+    const capitalizedCityName = cityName.charAt(0).toUpperCase() + cityName.slice(1);
 
-      const cityData = await cityResponse.json();
-      const lati = cityData.data[0].geoCode.latitude;
-      const longi = cityData.data[0].geoCode.longitude;
-      catagory =catagory.slice(0, -1);
+    const accessToken = await getAccessToken();
+    const cityResponse = await AirportAndCitySearch(accessToken, destinationCountryCode, cityName);
 
-      const placesData=await getPlacesFromGeoapify(lati, longi,catagory);
-      var data1 = placesData;
-      localStorage.setItem('data1', JSON.stringify(data1));
+    if (!cityResponse.ok) {
+      throw new Error(`Failed to fetch city data: ${cityResponse.statusText}`);
+    }
 
-      const flightdata=await searchFlightOffers(departDate,cityName,countryCode);
-      var data2=flightdata;
-      localStorage.setItem('data2', JSON.stringify(data2));
-      localStorage.setItem('originCity', departureCity);
-      cityName = cityName.charAt(0).toUpperCase() + cityName.slice(1);
-      localStorage.setItem('destinationCity', cityName);
-      console.log(departureCity, cityName);
-     
+    const cityData = await cityResponse.json();
+    const lati = cityData.data[0].geoCode.latitude;
+    const longi = cityData.data[0].geoCode.longitude;
 
+    category = category.slice(0, -1);
 
-      hotelcatagory='accommodation.hotel';
-      const hotelData=await getPlacesFromGeoapify(lati, longi,hotelcatagory);
-      var data3 = hotelData;
-      localStorage.setItem('data3', JSON.stringify(data3));
-      // Display places when the page loads
-      window.location.href = "geoapify_module/display.html";
-     
-      // window.onload = function() {
-      //    // Display the retrieved data
-      //   };
-       
+    const placesData = await getPlacesFromGeoapify(lati, longi, category);
+    localStorage.setItem('data1', JSON.stringify(placesData));
 
+    const flightdata = await searchFlightOffers(departDate, cityName, originCity, originCountryCode, destinationCountryCode);
+    const flightdata2 = await searchFlightOffers(returnDate, originCity, cityName, originCountryCode, destinationCountryCode);
+    console.log(departDate,returnDate);
+    localStorage.setItem('data2', JSON.stringify(flightdata));
+    localStorage.setItem('data10', JSON.stringify(flightdata2));
+    localStorage.setItem('originCity', originCity);
+    localStorage.setItem('destinationCity', capitalizedCityName);
+
+    const hotelCategory = 'accommodation.hotel';
+    const hotelData = await getPlacesFromGeoapify(lati, longi, hotelCategory);
+    localStorage.setItem('data3', JSON.stringify(hotelData));
+
+    window.location.href = "geoapify_module/display.html";
   } catch (error) {
-      console.error('Error:', error);
+    console.error('Error:', error);
   }
 }
 
@@ -386,7 +356,8 @@ function initializeApp() {
   let cityName = document.querySelector(".CityName1").value;
   cityName = cityName.charAt(0).toUpperCase() + cityName.slice(1);
   const enter_city = document.querySelector('.enter_city');
-  const departDate = fetchSelectedDates();
+  const departDate = document.getElementById('result_from').value;
+  const returnDate = document.getElementById('result_to').value;
   const enterDate = document.querySelector('.enter_date');
   const enterTag = document.querySelector('.enter_tag');
   const showSpinner=document.querySelector('.spinner');
@@ -402,7 +373,7 @@ function initializeApp() {
   if (cityName !== '') {
     if (category !== '') {
       if (departDate !== '') {
-        citycoordinates(cityName, departDate, category);
+        citycoordinates(cityName,departDate,returnDate,category);
         showSpinner.style.visibility="visible";
       } else {
         // Show enter date message

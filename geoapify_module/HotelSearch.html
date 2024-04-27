@@ -29,9 +29,9 @@
         }
     </style>
 </head>
-<body>
+<body style="background-color: #e5e5e5;">
     <div class="start">
-        <h1>Hotels</h1>
+        <h1 style="color: #03045e;">Hotels</h1>
     </div>
     <div class="container text-center align-items-center" style="margin-top: 50px;">
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4">
@@ -58,12 +58,11 @@
                 if (name !== undefined && addressLine1 !== undefined && addressLine2 !== undefined) {
                     var placeDiv = document.createElement('div');
                     placeDiv.classList.add('col');
-                    placeDiv.innerHTML = '<div class="card" style="width: 18rem;">' +
+                    placeDiv.innerHTML = '<div class="card" style="width: 18rem;  margin-bottom:10%; background-color:icewhite;">' +
                         '<div class="card-body">' +
                         '<h5 class="card-title">' + name + '</h5>' +
                         '<p class="card-text"><strong>Address Line 1:</strong> ' + addressLine1 + '</p>' +
                         '<p class="card-text"><strong>Address Line 2:</strong> ' + addressLine2 + '</p>' +
-                        '<a href="#" class="btn btn-primary">View Details</a>' +
                         '</div>' +
                         '</div>';
 

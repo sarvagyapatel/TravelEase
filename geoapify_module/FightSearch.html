@@ -14,20 +14,36 @@
   h1 {
     text-align: center;
     margin-top: 20px;
+    margin-bottom: 2%;
   }  
-  .col{
+  .col1.col2{
     min-width: fit-content;
   }
   .card.text-center{
     max-width: fit-content;
   }
+  .offersContainer{
+      display: flex;
+      flex-direction: row; 
+      justify-content: space-around;
+     }
+  @media screen and (max-width: 800px) {
+     .offersContainer{
+      display: flex;
+      flex-direction: column; 
+      justify-content: space-around;
+     }
+  }
+
 </style>
 </head>
-<body>
-  <h1>Flight Offers</h1>
+<body style="background-color: #e5e5e5;">
+  <h1><strong>Flight Offers</strong></h1>
 
-  <div class="card text-center">
-    <div class="col" style="min-width: fit-content">
+<div class="offersContainer">
+  <div class="card text-center departure">
+    <h4><strong>Departure</strong></h4>
+    <div class="col1" style="min-width: fit-content; ">
       <div class="card">
         <div class="card-body" style=" display: flex; flex-direction: column; align-items: flex-start;">
           <h5 class="card-title" ><div style="display: flex; flex-direction: row;"><p  class="departureCityName"></p> → <p class="arrivalCityName"></p></div></h5>
@@ -41,28 +57,47 @@
       </div>
     </div>
   </div>
+  <div class="card text-center return">
+    <h4><strong>Return</strong></h4>
+    <div class="col2" style="min-width: fit-content">
+      <div class="card">
+        <div class="card-body" style=" display: flex; flex-direction: column; align-items: flex-start;">
+          <h5 class="card-title" ><div style="display: flex; flex-direction: row;"><p  class="arrivalCityNameReturn"></p> → <p class="departureCityNameReturn"></p></div></h5>
+            <div style="display: flex; flex-direction: row; padding: 5px; border: 2px solid black; background-color: azure;">
+              <h6 style="margin-right: 20px">Departure</h6>
+              <h6 style="margin-right: 25px">Duration</h6>
+              <h6 style="margin-right: 40px">Arrival</h6>
+              <h6 style="margin-right: 20px">Price</h5>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
   <script src="/geoapify_module/FlightSearch.js"></script>
   <script>
 
 window.onload = function() {
     var dataString = localStorage.getItem('data2');
+    var dataString3 = localStorage.getItem('data10');
     var dataString1 = localStorage.getItem('originCity');
     var dataString2 = localStorage.getItem('destinationCity');
     var flightOffers = JSON.parse(dataString);
+    var flightOffers1 = JSON.parse(dataString3);
     var origin = dataString1;
     var departure1 = dataString2; // Assign the destination city here
     console.log(origin, departure1);
-    displayFlightOffers(flightOffers, origin, departure1); // Display the retrieved data
+    displayFlightOffers(flightOffers,flightOffers1, origin, departure1); // Display the retrieved data
 };
 
 
 
-    function displayFlightOffers(flightOffers,origin,departure1) {
+    function displayFlightOffers(flightOffers,flightOffers1,origin,departure1) {
     let dictionaries = flightOffers.dictionaries.carriers;
-    let fromCity=document.querySelector(".departureCityName");
-    let toCity=document.querySelector(".arrivalCityName");
-    fromCity.innerText=origin;
-    toCity.innerText=departure1;
+    let fromCityDeparture=document.querySelector(".departureCityName");
+    let toCityDeparture=document.querySelector(".arrivalCityName");
+    fromCityDeparture.innerText=origin;
+    toCityDeparture.innerText=departure1;
     console.log(flightOffers);
     flightOffers.data.forEach((offer) => {
         const itinerary = offer.itineraries[0];
@@ -79,10 +114,10 @@ window.onload = function() {
         let departureCity =origin;
         let arrivalCity =departure1;
 
-        var placesContainer = document.querySelector(".card.text-center");
+        var placesContainer = document.querySelector(".card.text-center.departure");
 
         var placeDiv = document.createElement("div");
-        placeDiv.classList.add("col");
+        placeDiv.classList.add("col1");
         placeDiv.innerHTML =
             '<div class="card">' +
             '<div class="card-body" style="display: flex; flex-direction: column; align-items: flex-start;">' +
@@ -113,6 +148,66 @@ window.onload = function() {
             '</div>';
         placesContainer.appendChild(placeDiv);
     });
+
+
+    let fromCityReturn=document.querySelector(".departureCityNameReturn");
+    let toCityReturn=document.querySelector(".arrivalCityNameReturn");
+    fromCityReturn.innerText=origin;
+    toCityReturn.innerText=departure1;
+
+    console.log(flightOffers1);
+    flightOffers1.data.forEach((offer) => {
+        const itinerary = offer.itineraries[0];
+        const segments = itinerary.segments;
+        const firstSegment = segments[0];
+        const lastSegment = segments[segments.length - 1];
+
+        let amount = Math.round(offer.price.total * 90);
+        let departure = firstSegment.departure.at.slice(-8); // Take the last 8 characters
+        let arrival = lastSegment.arrival.at.slice(-8); // Take the last 8 characters
+        let duration = itinerary.duration.slice(2);
+        let AirlineCode = offer.itineraries[0].segments[0].operating.carrierCode;
+        let Airline = dictionaries[AirlineCode]; // Retrieve airline name using airline code
+        let departureCity =departure1;
+        let arrivalCity =origin;
+
+        var placesContainer = document.querySelector(".card.text-center.return");
+
+        var placeDiv = document.createElement("div");
+        placeDiv.classList.add("col1");
+        placeDiv.innerHTML =
+            '<div class="card">' +
+            '<div class="card-body" style="display: flex; flex-direction: column; align-items: flex-start;">' +
+            '<h5 class="card-title">' + Airline + '</h5>' +
+            '<div style="display: flex; flex-direction: row;">' +
+            '<div style="margin-right: 10px; display: flex; flex-direction: column;">' +
+            '<h4>' + departure + '</h4>' +
+            '<p>' + departureCity + '</p>' +
+            '</div>' +
+            '<div style="margin-right: 10px; display: flex; flex-direction: column;">' +
+            '<h6 style="margin-top: 5px;">' + duration + '</h6>' +
+            '<div class="relative fliStopsSep">' +
+            '<p class="fliStopsSepLine" style="border-top: 3px solid rgb(245, 166, 34);"></p>' +
+            '<span class="fliStopsDisc"></span>' +
+            '<p style="margin-top: -15px;">duration</p>' +
+            '</div>' +
+            '</div>' +
+            '<div style="margin-right: 10px; display: flex; flex-direction: column;">' +
+            '<h4>' + arrival + '</h4>' +
+            '<p>' + arrivalCity + '</p>' +
+            '</div>' +
+            '<div style="display: flex; flex-direction: column;">' +
+            '<h4>₹' + amount + '</h4>' +
+            '<p>per adult</p>' +
+            '</div>' +
+            '</div>' +
+            '</div>' +
+            '</div>';
+        placesContainer.appendChild(placeDiv);
+    });
+
+
+
 }
 
   </script>

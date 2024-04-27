@@ -365,7 +365,25 @@ button:hover {
   transition: visibility 0.5s;
 }
 
-
+.counterDiv{
+  display: inline-block;
+  font-size: 1.1rem;
+  margin: 5px;
+  padding: 5 10 5 10;
+  background-color:#03045e;
+  border: none;
+  border-radius: 15px;
+  color: white;
+  font-family: 'Poppins', sans-serif;
+  transition: 0.2s;
+}
+.counter{
+  text-shadow: 10%;
+  margin-bottom: 0%;
+  text-decoration: dashed;
+  margin: 10px;
+  font-weight: bolder;
+}
 
 
 

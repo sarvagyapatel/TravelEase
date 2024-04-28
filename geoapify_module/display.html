@@ -48,24 +48,8 @@
       min-height: 290px;
     }
 
-    .leaflet-routing-geocoders {
+    .leaflet-top.leaflet-right {
       visibility: hidden;
-    }
-
-    .leaflet-routing-alt {
-      margin-top: -340px;
-    }
-
-    .leaflet-routing-alt h2 {
-      visibility: hidden;
-    }
-
-    .leaflet-routing-alt h3 {
-      visibility: hidden;
-    }
-
-    .leaflet-routing-alt table {
-      margin-top: -820px;
     }
 
     @media screen and (max-width: 547px) {
@@ -346,8 +330,9 @@
     console.log(route_coordinates);
     console.log(waypoints);
 
+    var firstWaypoint = waypoints[0];
+    var map = L.map('map').setView([firstWaypoint.lat, firstWaypoint.lng], 13);
 
-    var map = L.map('map').setView([51.505, -0.09], 13);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19,
